@@ -8,6 +8,7 @@ use App\Enum\ActiveStatus;
 use App\Models\Client;
 use App\Models\CreateClientModelInterface;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Redis;
 use Spatie\Geocoder\Geocoder;
 
 class ClientCreator implements ClientCreatorInterface
@@ -37,6 +38,8 @@ class ClientCreator implements ClientCreatorInterface
         $client->status         = ActiveStatus::active();
 
         $client->save();
+        $geo = $this->getGeocode($model)['lat'] . ', ' . $this->getGeocode($model)['lng'];
+        Redis::hMset("client_" . $client->id, 'geo', $geo);
 
         return $client;
     }
@@ -48,14 +51,26 @@ class ClientCreator implements ClientCreatorInterface
      */
     protected function getGeocode(CreateClientModelInterface $model): array
     {
-        $address =
-            $model->getAddress1() . ' ' . $model->getAddress2() . ', ' . $model->getCity() . ', ' . $model->getState()
-            . ', ' . $model->getCountry();
+        $address = $this->getAddress($model);
 
         $client   = new \GuzzleHttp\Client();
         $geocoder = new Geocoder($client);
         $geocoder->setApiKey(config('geocoder.key'));
 
         return $geocoder->getCoordinatesForAddress($address);
+    }
+
+    /**
+     * @param \App\Models\CreateClientModelInterface $model
+     *
+     * @return string
+     */
+    protected function getAddress(CreateClientModelInterface $model): string
+    {
+        return $model->getAddress1() . ' '
+            . $model->getAddress2() . ', '
+            . $model->getCity() . ', '
+            . $model->getState() . ', '
+            . $model->getCountry();
     }
 }
