@@ -5,25 +5,26 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Client
  *
- * @property int $id
- * @property string $client_name
- * @property string $address1
- * @property string $address2
- * @property string $city
- * @property string $state
- * @property string $country
- * @property float $latitude
- * @property float $longitude
- * @property string $phone_no1
- * @property string $phone_no2
- * @property string $zip
- * @property \Illuminate\Support\Carbon $start_validity
- * @property \Illuminate\Support\Carbon $end_validity
- * @property string $status
+ * @property int                             $id
+ * @property string                          $client_name
+ * @property string                          $address1
+ * @property string                          $address2
+ * @property string                          $city
+ * @property string                          $state
+ * @property string                          $country
+ * @property float                           $latitude
+ * @property float                           $longitude
+ * @property string                          $phone_no1
+ * @property string                          $phone_no2
+ * @property string                          $zip
+ * @property \Illuminate\Support\Carbon      $start_validity
+ * @property \Illuminate\Support\Carbon      $end_validity
+ * @property string                          $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -89,4 +90,12 @@ class Client extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id', 'client_id');
+    }
 }
