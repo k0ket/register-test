@@ -9,6 +9,14 @@ use App\Repositories\Interfaces\ClientRepositoryInterface;
 
 class ClientRepository implements ClientRepositoryInterface
 {
+    /**
+     * @param null $sort
+     * @param null $sortBy
+     * @param null $filter
+     * @param null $filterBy
+     *
+     * @return array
+     */
     public function getAccounts($sort = null, $sortBy = null, $filter = null, $filterBy = null): array
     {
         $client  = Client::query();

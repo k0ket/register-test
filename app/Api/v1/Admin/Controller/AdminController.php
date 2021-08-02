@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace App\Api\v1\Admin\Controller;
 
 use App\Api\v1\Admin\Resource\AccountResource;
-use App\Api\v1\Admin\Resource\LinksResource;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\ClientRepositoryInterface;
-use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Response;
 
 class AdminController extends Controller
