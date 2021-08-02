@@ -17,3 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/**
+ * @var \Illuminate\Routing\Router $router
+ */
+
+$router->post('/v1/auth/register', [
+    'as'   => 'api.v1.auth.register',
+    'uses' => 'App\Api\v1\Auth\Controllers\AuthController@register',
+]);
+
+$router->get('/v1/admin/account', [
+    'as'   => 'api.v1.admin.account',
+    'uses' => 'App\Api\v1\Admin\Controller\AdminController@account',
+]);
+
