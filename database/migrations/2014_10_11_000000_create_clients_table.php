@@ -30,7 +30,7 @@ class CreateClientsTable extends Migration
             $table->date('end_validity');
             $table->enum('status', ['Active', 'Inactive']);
             $table->timestamps();
-            $table->timestamp('deleted_at');
+            $table->softDeletes();
 
         });
     }

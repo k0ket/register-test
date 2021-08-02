@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('last_password_reset');
             $table->enum('status', ['Active', 'Inactive']);
             $table->timestamps();
-            $table->timestamp('deleted_at');
+            $table->softDeletes();
 
             $table->foreign('client_id')->references('id')->on('clients');
         });
