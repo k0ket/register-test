@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
             "App\Services\Client\ClientService");
         $this->app->bind("App\Services\Client\ClientCreatorInterface",
             "App\Services\Client\ClientCreator");
+
+        $this->app->bind("App\Repositories\Interfaces\ClientRepositoryInterface",
+            "App\Repositories\ClientRepository");
     }
 
     /**

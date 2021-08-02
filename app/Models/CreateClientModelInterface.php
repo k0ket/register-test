@@ -15,9 +15,9 @@ interface CreateClientModelInterface
     public function getAddress1(): string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAddress2(): string;
+    public function getAddress2(): ?string;
 
     /**
      * @return string

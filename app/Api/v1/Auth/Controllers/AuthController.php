@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Api\v1\Auth\Controllers;
 
 use App\Api\v1\Auth\Requests\RegisterRequest;
+use App\Api\v1\Auth\Resource\ClientResource;
 use App\Http\Controllers\Controller;
 use App\Services\Client\ClientServiceInterface;
 use App\Services\User\UserServiceInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthController extends Controller
 {
@@ -31,17 +32,13 @@ class AuthController extends Controller
         $this->clientService = $clientService;
     }
 
-    /**
-     * @param \App\Api\v1\Auth\Requests\RegisterRequest $request
-     *
-     * @return int
-     */
-    public function register(RegisterRequest $request): int
+
+    public function register(RegisterRequest $request)
     {
         $client = $this->clientService->create($request);
 
         $this->userService->create($request, $client);
 
-        return Response::HTTP_OK;
+        return JsonResource::make(new ClientResource($client));
     }
 }
