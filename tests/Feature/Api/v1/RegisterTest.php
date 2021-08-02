@@ -9,7 +9,7 @@ class RegisterTest extends TestCase
 {
     use WithFaker;
 
-    public function test(): void
+    public function test_register_user_and_client_return_account(): void
     {
         $email    = $this->faker->email;
         $response = $this->post(route('api.v1.auth.register'), [

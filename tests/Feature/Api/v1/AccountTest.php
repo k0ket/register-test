@@ -10,7 +10,7 @@ class AccountTest extends TestCase
 {
     use WithFaker;
 
-    public function test(): void
+    public function test_get_all_accounts_returns_with_paginate(): void
     {
         $response = $this->get(route('api.v1.admin.account'),
             [
